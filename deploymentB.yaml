@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-b
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-b
+  template:
+    metadata:
+      labels:
+        app: pod-b
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: pod
+                    operator: In
+                    values: ["pod-b"]
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: app-b-container
+          image: nginx

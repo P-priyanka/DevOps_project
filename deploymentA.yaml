@@ -1,0 +1,28 @@
+#Submitted By: Priyanka
+#Humber Id: N01591501
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-a
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: pod-a
+  template:
+    metadata:
+      labels:
+        app: pod-a
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: pod
+                    operator: In
+                    values: ["pod-a"]
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: app-a-container
+          image: nginx
