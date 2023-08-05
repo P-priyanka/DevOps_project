@@ -44,4 +44,4 @@ Take POD NAME from Deployment
 `kubectl get pods -o wide -l app=pod-b`
 
 # TO DELETE DEPLOYMENT
-`kubectl delete deployment pod-a-deployment`
+`kubectl delete deployment pod-a`
